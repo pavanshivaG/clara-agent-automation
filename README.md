@@ -81,13 +81,18 @@ Execution logs are stored to track system activity and detect potential issues.
 Open terminal in the project directory.
 
 cd clara-agent-automation
+
 2️⃣ Create Virtual Environment
+
 python -m venv venv
+
 3️⃣ Activate Virtual Environment
-Windows
+
+Windows 
 venv\Scripts\activate
-Mac/Linux
+Mac/Linux 
 source venv/bin/activate
+
 4️⃣ Install Dependencies
 
 If you have a requirements.txt:
@@ -97,6 +102,7 @@ pip install -r requirements.txt
 Or install manually:
 
 pip install deepdiff streamlit pandas fastapi uvicorn
+
 5️⃣ (Optional) Start n8n using Docker
 
 Make sure Docker is installed.
@@ -112,6 +118,7 @@ http://localhost:5678
 Import the workflow:
 
 workflows/n8n_pipeline.json
+
 6️⃣ Add Dataset Files
 
 Place transcripts in:
@@ -123,6 +130,7 @@ Example:
 
 data/demo_calls/demo_001.txt
 data/onboarding_calls/onboard_001.txt
+
 7️⃣ Run the Automation Pipeline
 
 Run the full pipeline:
@@ -158,6 +166,7 @@ v1/agent.json
 v2/memo.json
 v2/agent.json
 changes.json
+
 9️⃣ Run the Dashboard
 
 Start the Streamlit UI:
