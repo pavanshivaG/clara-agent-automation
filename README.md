@@ -76,59 +76,117 @@ Execution logs are stored to track system activity and detect potential issues.
 
 🐳 Running the Project
 
-1️⃣ Clone the Repository
+1️⃣ Navigate to Project Folder
 
+Open terminal in the project directory.
 
-git clone <repository-url>
 cd clara-agent-automation
-
-
 2️⃣ Create Virtual Environment
-
-
 python -m venv venv
-
-
 3️⃣ Activate Virtual Environment
-
 Windows
-
-
 venv\Scripts\activate
-
-
-Mac / Linux
-
-bash
+Mac/Linux
 source venv/bin/activate
-
-
 4️⃣ Install Dependencies
 
+If you have a requirements.txt:
+
+pip install -r requirements.txt
+
+Or install manually:
 
 pip install deepdiff streamlit pandas fastapi uvicorn
+5️⃣ (Optional) Start n8n using Docker
 
+Make sure Docker is installed.
 
-5️⃣ Run the Backend
+Run:
 
+docker-compose up -d
 
-python main.py
+Open n8n:
 
+http://localhost:5678
 
+Import the workflow:
 
+workflows/n8n_pipeline.json
+6️⃣ Add Dataset Files
 
-🐳 Running with Docker
+Place transcripts in:
 
-Build the Docker container:
+data/demo_calls/
+data/onboarding_calls/
 
+Example:
 
-docker build -t clara-agent .
+data/demo_calls/demo_001.txt
+data/onboarding_calls/onboard_001.txt
+7️⃣ Run the Automation Pipeline
 
+Run the full pipeline:
 
-Run the container:
+python scripts/run_pipeline.py
 
+This will:
 
-docker run -p 8000:8000 clara-agent
+process demo transcript
+
+generate memo v1
+
+generate agent v1
+
+process onboarding transcript
+
+update memo v2
+
+generate agent v2
+
+create changelog
+
+8️⃣ Check Generated Outputs
+
+Open:
+
+outputs/accounts/account_001/
+
+You should see:
+
+v1/memo.json
+v1/agent.json
+v2/memo.json
+v2/agent.json
+changes.json
+9️⃣ Run the Dashboard
+
+Start the Streamlit UI:
+
+streamlit run dashboard/app.py
+
+Open browser:
+
+http://localhost:8501
+
+The dashboard will show:
+
+memo v1
+
+memo v2
+
+detected changes
+
+pipeline metrics
+
+🔟 (Optional) Run API Server
+
+If using FastAPI endpoint:
+
+uvicorn scripts.api_server:app --reload
+
+Test pipeline trigger:
+
+http://localhost:8000/run-pipeline
 
 ---
 
