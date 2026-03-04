@@ -1,390 +1,174 @@
-Agent Automation Pipeline
+🤖 Agent Automation
 
-This project implements an automation pipeline that converts customer call transcripts into structured AI agent configurations.
-It simulates how Clara could automatically generate and update voice agent behavior from demo and onboarding calls.
+📌 Overview
 
-The system processes transcripts in two stages:
+Clara Agent Automation is an AI-driven automation system designed to streamline communication workflows and automate operational tasks. The project integrates multiple technologies to build a scalable and efficient automation pipeline capable of handling structured workflows, task orchestration, and data processing.
 
-Demo Call Processing – extracts business information and creates the initial configuration.
+The system leverages containerized infrastructure and workflow automation tools to ensure reliability, scalability, and ease of deployment.
 
-Onboarding Call Processing – updates the configuration based on onboarding discussions and produces version differences.
+---
 
-The pipeline is designed to be automated, versioned, and observable through a dashboard.
+🚀 Key Features
 
-Architecture Overview
+⚙️ Automated Workflows – Uses workflow automation to execute tasks without manual intervention.
+🧠 AI-powered Processing – Integrates intelligent processing for automated decision making.
+🔄 Task Orchestration – Handles multiple tasks and processes within a structured workflow pipeline.
+🐳 Containerized Deployment – Runs within Docker containers for portability and consistent environments.
+📊 Structured Logging – Maintains logs for monitoring and debugging system activities.
+🔌 Modular Architecture – Allows easy extension of workflows and integrations.
 
-The system is composed of four major components:
+---
 
-1. Python Processing Pipeline
+🛠️ Tech Stack
 
-Handles all data extraction, transformation, and versioning.
+Backend
 
-Responsible for:
+-Python
+-FastAPI
 
-Parsing transcripts
+Automation & Workflow
 
-Generating structured account memos
+-n8n – Used to create automation workflows and integrate services.
 
-Generating AI agent specifications
+Infrastructure
 
-Applying onboarding updates
+-Docker – Containerized deployment for consistent runtime environments.
 
-Detecting configuration changes
+Additional Tools
 
-Main scripts:
+-Virtual Environment (venv – Dependency isolation
+-Git & GitHub – Version control and collaboration
+-VS Code – Development environment
 
-scripts/
-extract_demo.py
-generate_agent.py
-update_onboarding.py
-run_pipeline.py
-2. n8n Workflow Automation
+---
 
-n8n is used to simulate workflow orchestration similar to what Clara might use internally.
+⚙️ System Architecture
 
-The n8n workflow:
+The system is built around an automation pipeline that coordinates between backend services and workflow orchestration.
 
-Trigger → HTTP Request → Python Pipeline
+1. The backend service processes requests and handles business logic.
+2. n8n orchestrates workflows and integrates external services or triggers.
+3. Docker containers provide an isolated runtime environment.
+4. Logs are generated to monitor workflow executions and backend operations.
 
-Purpose of using n8n:
+This architecture ensures modularity, scalability, and easier debugging.
 
-Automates pipeline execution
+---
 
-Simulates event-driven processing
+🔄 How the System Works
 
-Allows integration with APIs, CRMs, or scheduling systems
+1️⃣ User Interaction
+Users trigger automation processes through defined workflows or backend endpoints.
 
-Makes the pipeline extensible without changing core code
+2️⃣ Workflow Trigger
+n8n workflows listen for triggers such as API calls, events, or scheduled executions.
 
-Example future triggers:
+3️⃣ Processing Layer
+The backend processes incoming data, performs logic execution, and communicates with workflows.
 
-new transcript uploaded
+4️⃣ Automation Execution
+Tasks such as communication, data handling, or integrations are automatically executed.
 
-CRM event
+5️⃣ Logging & Monitoring
+Execution logs are stored to track system activity and detect potential issues.
 
-webhook from call system
+---
 
-3. Docker Containerization
+🐳 Running the Project
 
-Docker is used to run n8n as an isolated service.
+1️⃣ Clone the Repository
 
-Benefits:
-
-consistent environment
-
-easy setup
-
-avoids dependency conflicts
-
-portable deployment
-
-Docker configuration:
-
-docker-compose.yml
-
-Service started:
-
-n8nio/n8n
-
-Port mapping:
-
-5678 → n8n dashboard
-
-Docker environment variables allow the n8n code node to execute external commands.
-
-4. Streamlit Dashboard
-
-Streamlit provides a lightweight UI for:
-
-viewing generated memos
-
-comparing configuration versions
-
-viewing detected changes
-
-monitoring pipeline processing
-
-Dashboard file:
-
-dashboard/app.py
-Project Workflow
-
-The system processes transcripts in two sequential stages.
-
-Stage 1 – Demo Call Processing
-
-Purpose:
-Extract business information from the demo call.
-
-Steps:
-
-Read transcript from
-
-data/demo_calls/
-
-Extract structured data using rule-based parsing.
-
-Information extracted includes:
-
-company name
-
-supported services
-
-emergency definition
-
-business hours
-
-integration references
-
-Generate account memo.
-
-Output stored as:
-
-outputs/accounts/<account_id>/v1/memo.json
-
-Generate AI agent specification.
-
-Output stored as:
-
-outputs/accounts/<account_id>/v1/agent.json
-Stage 2 – Onboarding Call Processing
-
-Purpose:
-Update the configuration using onboarding discussions.
-
-Steps:
-
-Read transcript from
-
-data/onboarding_calls/
-
-Detect updates such as:
-
-routing rules
-
-timeout values
-
-timezone configuration
-
-integration restrictions
-
-Apply updates to the previous memo.
-
-Creates version:
-
-v2/memo.json
-
-Regenerate agent configuration.
-
-Creates:
-
-v2/agent.json
-
-Detect differences between versions using DeepDiff.
-
-Creates:
-
-changes.json
-Versioning Strategy
-
-The system maintains configuration history.
-
-outputs/accounts/account_xxx/
-
-v1/
-memo.json
-agent.json
-
-v2/
-memo.json
-agent.json
-
-changes.json
-
-Benefits:
-
-auditability
-
-safe configuration updates
-
-easy rollback
-
-clear change visibility
-
-Technologies Used
-Python
-
-Core processing pipeline.
-
-Used for:
-
-transcript parsing
-
-memo generation
-
-agent spec generation
-
-version comparison
-
-Regex-based NLP
-
-Lightweight text extraction method.
-
-Chosen because:
-
-fast
-
-deterministic
-
-no external dependencies
-
-predictable behavior
-
-DeepDiff
-
-Used to detect structural differences between JSON objects.
-
-Benefits:
-
-precise change tracking
-
-structured output
-
-supports nested JSON
-
-n8n
-
-Used as a workflow orchestrator.
-
-Advantages:
-
-visual workflow automation
-
-supports triggers, APIs, and integrations
-
-enables scalable event-driven architecture
-
-Docker
-
-Used to run n8n as a container.
-
-Benefits:
-
-environment isolation
-
-easy deployment
-
-reproducible setup
-
-Streamlit
-
-Used for the project dashboard.
-
-Advantages:
-
-minimal code
-
-instant UI
-
-ideal for data inspection tools
-
-Why This Architecture Is Effective
-Modular Design
-
-Each component has a clear responsibility:
-
-Python → processing
-n8n → orchestration
-Docker → infrastructure
-Streamlit → visualization
-Scalable
-
-The system can easily scale to process many accounts.
-
-Possible extensions:
-
-automatic transcript ingestion
-
-CRM integration
-
-webhook triggers
-
-scheduled processing
-
-Version Safe
-
-Configuration updates do not overwrite previous data.
-
-This ensures:
-
-traceability
-
-debugging capability
-
-safe experimentation
-
-Automation Ready
-
-The pipeline can run:
-
-manually
-
-via n8n trigger
-
-via API endpoint
-
-Installation
-
-Clone repository.
-
-git clone <repo_url>
+bash
+git clone <repository-url>
 cd clara-agent-automation
-Create Virtual Environment
+
+
+2️⃣ Create Virtual Environment
+
+bash
 python -m venv venv
 
-Activate environment.
 
-Windows:
+3️⃣ Activate Virtual Environment
 
+Windows
+
+bash
 venv\Scripts\activate
 
-Mac/Linux:
 
+Mac / Linux
+
+bash
 source venv/bin/activate
-Install Dependencies
-pip install deepdiff streamlit pandas
-Run Docker (n8n)
 
-Start n8n container.
 
-docker-compose up -d
+4️⃣ Install Dependencies
 
-Open n8n dashboard:
+bash
+pip install -r requirements.txt
 
-http://localhost:5678
-Run Processing Pipeline
 
-Execute the automation pipeline.
+5️⃣ Run the Backend
 
-python scripts/run_pipeline.py
+bash
+python main.py
 
-The pipeline will:
 
-process demo transcripts
 
-generate initial memo
 
-process onboarding transcripts
+🐳 Running with Docker
 
-update configuration
+Build the Docker container:
 
-produce change logs
+bash
+docker build -t clara-agent .
 
-Launch Dashboard
 
-Run Streamlit interface.
-streamlit run dashboard/app.py
+Run the container:
 
-Open:
+bash
+docker run -p 8000:8000 clara-agent
 
-http://localhost:8501
+---
+
+📂 Project Structure
+
+
+clara-agent-automation
+│
+├── workflows/          # n8n workflow configurations
+├── logs/               # Application logs
+├── backend/            # Backend services
+├── Dockerfile          # Docker container configuration
+├── requirements.txt    # Python dependencies
+└── README.md           # Project documentation
+
+
+
+
+📈 Why This Approach is Better
+
+✔ Automation-first architecture reduces manual effort
+✔ Containerized deployment ensures consistent environments
+✔ Scalable workflow orchestration with n8n
+✔ Modular design allows easy feature expansion
+✔ Improved monitoring through structured logging
+
+---
+
+👨‍💻 Author
+
+Pavan Shiva Golla
+Final Year Computer Science Student – VIT Vellore
+
+EXAMPLE OUTPUTS :
+
+<img width="1309" height="884" alt="image" src="https://github.com/user-attachments/assets/022f0514-f616-4ec4-8903-b0ea840fde75" />
+
+<img width="870" height="835" alt="image" src="https://github.com/user-attachments/assets/95552427-89f8-42b0-af73-7bb5830902b1" />
+
+<img width="1026" height="794" alt="image" src="https://github.com/user-attachments/assets/c00670b1-7276-4749-a9bd-54bbd0e6def1" />
+
+
+
