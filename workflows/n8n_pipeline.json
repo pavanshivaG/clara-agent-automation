@@ -1,0 +1,56 @@
+{
+  "name": "Clara Agent Automation Pipeline",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3c2f4891-f066-46fc-ba49-34ee0ecd2d80",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:8000/run-pipeline",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7143e109-40f7-4817-89a1-fa8f1325127e",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "e1a9c7bf-1a73-43e9-afcc-7f801fc5eb7f",
+  "meta": {
+    "instanceId": "3147faf79f5924c3a18f6458779c2c723125ffe50e3c2974a479b396de8ed729"
+  },
+  "id": "v8NqVfbluO3Jbv6M",
+  "tags": []
+}

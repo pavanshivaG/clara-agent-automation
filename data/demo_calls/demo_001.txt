@@ -1,0 +1,11 @@
+Client: We are ABC Fire Protection.
+
+We handle sprinkler systems, fire alarms, and extinguisher inspections.
+
+Our office hours are Monday to Friday 8 AM to 5 PM.
+
+Emergency calls include sprinkler leaks and fire alarms.
+
+Emergency calls should go to dispatch immediately.
+
+Non emergency calls can be scheduled during office hours.

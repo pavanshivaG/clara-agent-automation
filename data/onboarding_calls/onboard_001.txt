@@ -1,0 +1,7 @@
+Our timezone is EST.
+
+All emergency sprinkler calls must go directly to the phone tree.
+
+Never create sprinkler jobs in ServiceTrade.
+
+If transfer fails after 60 seconds dispatch must be notified.

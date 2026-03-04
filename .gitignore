@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+*.pyc
+.env
+n8n_data/
+outputs/
