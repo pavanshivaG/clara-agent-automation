@@ -78,14 +78,14 @@ Execution logs are stored to track system activity and detect potential issues.
 
 1️⃣ Clone the Repository
 
-bash
+
 git clone <repository-url>
 cd clara-agent-automation
 
 
 2️⃣ Create Virtual Environment
 
-bash
+
 python -m venv venv
 
 
@@ -93,7 +93,7 @@ python -m venv venv
 
 Windows
 
-bash
+
 venv\Scripts\activate
 
 
@@ -105,13 +105,13 @@ source venv/bin/activate
 
 4️⃣ Install Dependencies
 
-bash
-pip install -r requirements.txt
+
+pip install deepdiff streamlit pandas fastapi uvicorn
 
 
 5️⃣ Run the Backend
 
-bash
+
 python main.py
 
 
@@ -121,13 +121,13 @@ python main.py
 
 Build the Docker container:
 
-bash
+
 docker build -t clara-agent .
 
 
 Run the container:
 
-bash
+
 docker run -p 8000:8000 clara-agent
 
 ---
